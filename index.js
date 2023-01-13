@@ -10,7 +10,7 @@ client.login('');
 client.once('ready', () => { console.log('iniciado.'); });
 
 client.on('messageCreate', async message => {
-    if (message.content != '!memberlist') return;
+    if (message.content != '!giveawaybyrole') return;
 
     message.guild.roles.fetch().then(roles => {
         let role = roles.find(role => role.id === '1042793508173520927');
