@@ -13,7 +13,7 @@ client.on('messageCreate', async message => {
     if (message.content != '!memberlist') return;
 
     message.guild.roles.fetch().then(roles => {
-        let role = roles.find(role => role.id === '897265067953881118');
+        let role = roles.find(role => role.id === '1042793508173520927');
         message.guild.members.fetch().then(members => { //obtiene todos los miembros
 
             //filtra los miembros por el rol.
