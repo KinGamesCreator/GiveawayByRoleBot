@@ -32,11 +32,11 @@ client.on('messageCreate', async message => {
             var _ids = Object.keys(_d);
             for (var i = 0; i < _ids.length; i++) {
                 console.log(_ids[i]);
-                _list.push(`<@${_ids[i]}>`);
-                if (_list.length >= 15) {
+                _list.push(`Nickname: ${(await message.guild.members.fetch(_ids[i])).nickname} | Messages: ${_d[_ids[i].count]} | ID: ${_ids[i]}`);
+                if (_list.length >= 50) {
                     message.channel.send({embeds:[{
                         title : "!list",
-                        description : _list.join(", ")
+                        description : _list.join("\n")
                     }]})
                     _list = [];
                 }
@@ -44,7 +44,7 @@ client.on('messageCreate', async message => {
             if (_list.length > 0) {
                 message.channel.send({embeds:[{
                     title : "!list",
-                    description : _list.join(", ")
+                    description : _list.join("\n")
                 }]})
                 _list = [];
             }
