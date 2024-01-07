@@ -49,14 +49,15 @@ client.on('messageCreate', async message => {
             return;
         } else if (message.content.startsWith("!list")) {
             console.log("running")
+            var members = await message.guild.members.fetch();
             var _list = [];
             var _ids = Object.keys(_d);
             for (var i = 0; i < _ids.length; i++) {
                 console.log(_ids[i]);
 
-                member = await getMember(message,_ids[i]);
-
-                _list.push(`Nickname: ${member.nickname} | Messages: ${_d[_ids[i]].count} | ID: ${_ids[i]}`);
+                var member = members.find(m=>{console.log(m.id);return m.id === _ids[i]; });
+                
+                _list.push(`Nickname: **${member.user.username}** | Messages: **${_d[_ids[i]].count}** | ID: **${_ids[i]}**`);
                 if (_list.length >= 50) {
                     message.channel.send({embeds:[{
                         title : "!list",
