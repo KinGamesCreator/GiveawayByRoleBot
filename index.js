@@ -14,6 +14,15 @@ const client = new Client({
 client.login(config.token);
 client.once('ready', () => { console.log("READY") });
 
+function isSnowflake(snowflake_str) {
+    try{
+        let snowflake = BigInt(snowflake_str)
+        return(snowflake>0 && snowflake<BigInt("9223372036854775807"));
+    } catch(e){
+        return false;
+    }
+}
+
 async function getMember (message,id) {
     let member;
     let ID = id.replace("<@","").replace(">","").replace("!","");
