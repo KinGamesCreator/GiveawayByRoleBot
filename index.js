@@ -33,8 +33,7 @@ client.on('messageCreate', async message => {
             for (var i = 0; i < _ids.length; i++) {
                 console.log(_ids[i]);
 
-                member = message.guild.members.cache.get(_ids[i]);
-                member = await message.guild.members.fetch(_ids[i]);
+                member = await get_members[_ids[i]];
 
                 _list.push(`Nickname: ${member.nickname} | Messages: ${_d[_ids[i]].count} | ID: ${_ids[i]}`);
                 if (_list.length >= 50) {
@@ -67,3 +66,15 @@ client.on('messageCreate', async message => {
     fs.writeFileSync("./data.json",JSON.stringify(_d));
 
 });
+
+getMember = async (message,id) => {
+    let member;
+    let ID = id.replace("<@","").replace(">","").replace("!","");
+    if (!isSnowflake(ID)) {
+        member = (await message.guild.members.search({query:ID})).first();
+        return member;
+    }
+    member = message.guild.members.cache.get(ID);
+    if (!member) { message.guild.members.fetch(ID).then(a => {member = a}); }
+    return member;
+}
