@@ -17,39 +17,36 @@ client.once('ready', () => { console.log("READY") });
 client.on('messageCreate', async message => {
 
     let _d = JSON.parse(fs.readFileSync("./data.json"));
-    console.log(message.channel.id == "1078275340058763374");
-    console.log(message.content.startsWith("!random"));
-    console.log((message.author.id == "805930930736594995" || message.author.id == "653360060516270151"))
+
     if (message.channel.id == "1078275340058763374" && (message.author.id == "805930930736594995" || message.author.id == "653360060516270151")) {
         if (message.content.startsWith("!random")) {
             var _user = Object.keys(_d)[Math.floor(Math.random()* Object.keys(_d).length)];
             message.channel.send({embeds:[{
                 title : "!Random",
-                description : `El ganador es <@${_user}>!`,
-                color: "RED"
+                description : `El ganador es <@${_user}>!`
             }]}/*`<@${_user}>`*/);
             return;
         } else if (message.content.startsWith("!list")) {
+            console.log("running")
             var _list = [];
             var _ids = Object.keys(_d);
             for (var i = 0; i < _ids.length; i++) {
-                _list += `<@${_ids[i]}>`;
+                console.log(_ids[i]);
+                _list.push(`<@${_ids[i]}>`);
                 if (_list.length >= 15) {
-                    _list = [];
                     message.channel.send({embeds:[{
                         title : "!list",
-                        description : _list.join(", "),
-                        color : "RED"
+                        description : _list.join(", ")
                     }]})
+                    _list = [];
                 }
             }
-            if (_list.length != 0) {
+            if (_list.length > 0) {
+                message.channel.send({embeds:[{
+                    title : "!list",
+                    description : _list.join(", ")
+                }]})
                 _list = [];
-                    message.channel.send({embeds:[{
-                        title : "!list",
-                        description : _list.join(", "),
-                        color : "RED"
-                    }]})
             }
             return;
         }
