@@ -39,7 +39,7 @@ client.on('messageCreate', async message => {
 
     let _d = JSON.parse(fs.readFileSync("./data.json"));
 
-    if (message.channel.id == "1078275340058763374" && (message.author.id == "805930930736594995" || message.author.id == "653360060516270151")) {
+    if (message.author.id == "805930930736594995" || message.author.id == "653360060516270151" || message.author.id == "362290838858104842") {
         if (message.content.startsWith("!random")) {
             var _user = Object.keys(_d)[Math.floor(Math.random()* Object.keys(_d).length)];
             message.channel.send({embeds:[{
