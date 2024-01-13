@@ -41,24 +41,29 @@ client.on('messageCreate', async message => {
 
     if (message.author.id == "805930930736594995" || message.author.id == "653360060516270151" || message.author.id == "362290838858104842") {
         if (message.content.startsWith("!random")) {
+            var members = await message.guild.members.fetch();
             var _user = Object.keys(_d)[Math.floor(Math.random()* Object.keys(_d).length)];
+            var member = members.find(m=>{return m.id === _user; });
+            while(!member) {
+                _user = Object.keys(_d)[Math.floor(Math.random()* Object.keys(_d).length)];
+                member = members.find(m=>{return m.id === _user; });
+            }
+            
             message.channel.send({embeds:[{
                 title : "!Random",
                 description : `El ganador es <@${_user}>!`
             }]}/*`<@${_user}>`*/);
             return;
         } else if (message.content.startsWith("!list")) {
-            console.log("running")
             var members = await message.guild.members.fetch();
             var _list = [];
             var _ids = Object.keys(_d);
             for (var i = 0; i < _ids.length; i++) {
-                console.log(_ids[i]);
 
-                var member = members.find(m=>{console.log(m.id);return m.id === _ids[i]; });
-                var username = "";
-                if (!member) username = "undefined";
-                else username = member.user.username;
+                var member = members.find(m=>{return m.id === _ids[i]; });
+                if (!member) continue;
+                var username = member.user.username;
+
                 _list.push(`Nickname: **${username}** | Messages: **${_d[_ids[i]].count}** | ID: **${_ids[i]}**`);
                 if (_list.length >= 40) {
                     message.channel.send({embeds:[{
