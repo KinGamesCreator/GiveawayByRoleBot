@@ -50,8 +50,13 @@ client.on('messageCreate', async message => {
             }
             
             message.channel.send({embeds:[{
-                title : "!Random",
-                description : `El ganador es: **${member.user.username}**!\n(ID: ${_user})`
+                thumbnail : { url: "https://media.discordapp.net/attachments/897241788509724718/1195561735990563037/8ec185f87fc0d88b3788..png"},
+                color : 10181046,
+                title : "SORTEO",
+                description : `El ganador es: **${member.user.username}**!`,
+                footer:{
+                    "text" : `userId: ${_user}`
+                }
             }]}/*`<@${_user}>`*/);
             return;
         } else if (message.content.startsWith("!list")) {
