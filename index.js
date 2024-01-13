@@ -56,8 +56,10 @@ client.on('messageCreate', async message => {
                 console.log(_ids[i]);
 
                 var member = members.find(m=>{console.log(m.id);return m.id === _ids[i]; });
-                
-                _list.push(`Nickname: **${member.user.username}** | Messages: **${_d[_ids[i]].count}** | ID: **${_ids[i]}**`);
+                var username = "";
+                if (!member) username = "undefined";
+                else username = member.user.username;
+                _list.push(`Nickname: **${username}** | Messages: **${_d[_ids[i]].count}** | ID: **${_ids[i]}**`);
                 if (_list.length >= 40) {
                     message.channel.send({embeds:[{
                         title : "!list",
