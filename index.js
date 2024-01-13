@@ -51,7 +51,7 @@ client.on('messageCreate', async message => {
             
             message.channel.send({embeds:[{
                 title : "!Random",
-                description : `El ganador es <@${_user}>!`
+                description : `El ganador es: **${member.user.username}**!\n(ID: ${_user})`
             }]}/*`<@${_user}>`*/);
             return;
         } else if (message.content.startsWith("!list")) {
